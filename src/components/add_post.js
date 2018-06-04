@@ -7,11 +7,8 @@ import { addPost, loadCategories} from '../actions'
 
 class AddPost extends Component {
   state = {
-    category: 'react',
-    // title: '',
-    // author: '',
-    // body: ''
-  };
+    category: 'react'
+  }
 
   componentDidMount() {
     this.props.loadCategories();
@@ -36,7 +33,7 @@ class AddPost extends Component {
     return (
       <div className='wrapper'>
         <div>Add Post</div>
-        <div><Link to={"/"} key="back">Back</Link></div>
+        <div><Link to={'/'} key='back'>Back</Link></div>
         <form onSubmit={ this.handleSubmit }>
           <input type='hidden'  name='id' value={uuidv1()}/>
           <input type='hidden'  name='timestamp' value={Date.now()}/>

@@ -58,7 +58,7 @@ render() {
             <li key = { post.id }>
               <div className='post-wrapper'>
                 <div>Category: { post.category }</div>
-                <div>Title: <Link to={`/show/${post.id}`}>{ post.title }</Link></div>
+                <div>Title: <Link to={`/${post.category}/${post.id}`}>{ post.title }</Link></div>
                 <div><Timestamp time={ post.timestamp / 1000 } format='full' /></div>
                 <div>Author: { post.author }</div>
                 <div>Comments: { post.commentCount }</div>
@@ -68,7 +68,7 @@ render() {
                   <button onClick={ () => this.votePost( post.id, 'downVote' ) }>Down</button>
                 </div>
                 <div><button onClick={ () => this.deletePost( post.id ) }>Remove Post</button></div>
-                {/* <div><Link to={`/editpost/${post.id}`}><button>Edit Post</button></Link></div> */}
+                <div><Link to={`/editpost/${post.id}`}><button>Edit Post</button></Link></div>
               </div>
             </li>
           ))}

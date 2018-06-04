@@ -50,13 +50,13 @@ class Api {
     });
   }
 
-  // static getComments(postId) {
-  //   return fetch(`${API}/posts/${postId}/comments`, { headers: { Authorization: 'whatever-you-want' } }).then(response => {
-  //     return response.json().then(data => data);
-  //   }).catch(error => {
-  //     return error;
-  //   });
-  // }
+  static getComments(postId) {
+    return fetch(`${API}/posts/${postId}/comments`, { headers: { Authorization: 'whatever-you-want' } }).then(response => {
+      return response.json().then(data => data);
+    }).catch(error => {
+      return error;
+    });
+  }
 
   // static addComment = (comment) => {
   //   const body = JSON.stringify(comment);
