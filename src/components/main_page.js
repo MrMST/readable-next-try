@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Timestamp from 'react-timestamp'
 import { Link } from 'react-router-dom'
-import { loadPosts, loadCategories, changeSorting, votePost } from '../actions'
+import { loadPosts, loadCategories, deletePost, changeSorting, votePost } from '../actions'
 
 class MainPage extends Component {
 
@@ -11,13 +11,17 @@ componentDidMount() {
   this.props.loadCategories();
 }
 
-changeSorting = ( sorting ) => {
+changeSorting = (sorting) => {
   this.props.changeSorting({ sorting });
 }
 
 votePost = (id, value) => {
   this.props.votePost(id, value);
 }
+
+deletePost = (id) => {
+  this.props.deletePost(id);
+};
 
 render() {
   const {posts} = this.props.posts
@@ -63,7 +67,7 @@ render() {
                   CurrentScore: { post.voteScore }
                   <button onClick={ () => this.votePost( post.id, 'downVote' ) }>Down</button>
                 </div>
-                {/* <div><button onClick={ () => this.deletePost( post.id ) }>Remove Post</button></div> */}
+                <div><button onClick={ () => this.deletePost( post.id ) }>Remove Post</button></div>
                 {/* <div><Link to={`/editpost/${post.id}`}><button>Edit Post</button></Link></div> */}
               </div>
             </li>
@@ -79,4 +83,4 @@ const mapStateToProps = ({posts, categories, sorting}) => ({
   posts, categories, sorting
 })
 
-export default connect(mapStateToProps, {loadPosts, loadCategories, changeSorting, votePost})(MainPage)
+export default connect(mapStateToProps, {loadPosts, loadCategories, deletePost, changeSorting, votePost})(MainPage)

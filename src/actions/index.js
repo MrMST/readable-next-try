@@ -52,6 +52,23 @@ export function addPost(post) {
   };
 }
 
+export function deletePostSuccess(postId) {
+  return {
+    type: types.DELETE_POST_SUCCESS,
+    postId
+  }
+};
+
+export function deletePost(postId) {
+  return function(dispatch) {
+    Api.deletePost(postId).then(post => {
+      dispatch(deletePostSuccess(postId));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
 export function changeSorting(sorting) {
   return {
     type: types.CHANGE_SORTING_SUCCESS,

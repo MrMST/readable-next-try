@@ -11,8 +11,17 @@ function posts(state = { posts: [] }, action) {
           posts: action.posts
         };
 
-      case types.LOAD_POST_SUCCESS:
+    case types.LOAD_POST_SUCCESS:
       return [action.posts];
+
+    case types.DELETE_POST_SUCCESS:
+      const remainingPosts = state.posts.filter(
+        entry => entry.id !== action.postId
+      );
+      return {
+        ...state,
+        posts: remainingPosts
+      };
 
     case types.VOTE_POST_SUCCESS:
       const refreshedPosts = state.posts.map(entry => {
@@ -23,7 +32,7 @@ function posts(state = { posts: [] }, action) {
       });
       return {
         ...state,
-        postsSSS: refreshedPosts
+        posts: refreshedPosts
       };
 
       default:
@@ -36,10 +45,6 @@ function categories(state = {}, action) {
 
     case types.LOAD_CATEGORIES_SUCCESS:
       return action.categories
-      // return {
-      //   ...state,
-      //   categories: action.categories
-      // };
 
     default:
       return state;

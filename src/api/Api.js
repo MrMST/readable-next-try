@@ -1,4 +1,4 @@
-const API = "http://localhost:3001";
+const API = 'http://localhost:3001';
 
 class Api {
   static getPosts() {
@@ -33,14 +33,25 @@ class Api {
     .then(data => data.json());
   };
 
+  static deletePost = (postId) => {
+    return fetch(`${API}/posts/${postId}`, { method: 'DELETE', headers : {
+      'Authorization': 'whatever-you-want',
+      'Content-Type': 'application/json'
+    } }).then(response => {
+      return response.json();
+    }).catch(error => {
+      return error;
+    });
+  }
+
   static getCategories = () => {
-    return fetch(`${API}/categories`, { headers: { Authorization: "whatever-you-want" }}).then(response => {
+    return fetch(`${API}/categories`, { headers: { Authorization: 'whatever-you-want' }}).then(response => {
       return response.json().then(data => data.categories);
     });
   }
 
   // static getComments(postId) {
-  //   return fetch(`${API}/posts/${postId}/comments`, { headers: { Authorization: "whatever-you-want" } }).then(response => {
+  //   return fetch(`${API}/posts/${postId}/comments`, { headers: { Authorization: 'whatever-you-want' } }).then(response => {
   //     return response.json().then(data => data);
   //   }).catch(error => {
   //     return error;
@@ -49,9 +60,9 @@ class Api {
 
   // static addComment = (comment) => {
   //   const body = JSON.stringify(comment);
-  //   return fetch(`${API}/comments/`, { method: "POST", headers: {
-  //       Authorization: "whatever-you-want",
-  //       "Content-Type": "application/json"
+  //   return fetch(`${API}/comments/`, { method: 'POST', headers: {
+  //       Authorization: 'whatever-you-want',
+  //       'Content-Type': 'application/json'
   //     },
   //     body
   //   }).then(response => {
@@ -62,9 +73,9 @@ class Api {
   // }
 
   // static voteComment = (commentId, option) => {
-  //   return fetch(`${API}/comments/${commentId}`, { method: "POST", headers: {
-  //       Authorization: "whatever-you-want",
-  //       "Content-Type": "application/json"
+  //   return fetch(`${API}/comments/${commentId}`, { method: 'POST', headers: {
+  //       Authorization: 'whatever-you-want',
+  //       'Content-Type': 'application/json'
   //     }, body: JSON.stringify({ option: option })
   //   }).then(data => data.json());
   // };
