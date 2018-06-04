@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadPosts, changeSorting, votePost } from '../actions'
 import Timestamp from 'react-timestamp'
 import { Link } from 'react-router-dom'
+import { loadPosts, loadCategories, changeSorting, votePost } from '../actions'
 
 class MainPage extends Component {
 
 componentDidMount() {
   this.props.loadPosts();
+  this.props.loadCategories();
 }
 
 changeSorting = ( sorting ) => {
@@ -21,18 +22,29 @@ votePost = (id, value) => {
 render() {
   const {posts} = this.props.posts
   const {sorting} = this.props.sorting
+  const categories = this.props.categories
+
+  console.log(categories)
 
   return(
       <div className='post-list-wrapper'>
+          <ul>
+          <li><Link to={'/'} key='all'><button>All</button></Link></li>
+          {
+          categories && categories && categories.length > 0 && categories.map( category =>(
+            <li key={category.name}><Link to={`/${category.path}`}><button>{ category.name }</button></Link></li>
+           ))
+          }
+        </ul>
         <button onClick={ () => this.changeSorting('votescore') }>VoteScore</button>
         <button onClick={ () => this.changeSorting('timestamp') }>Timestamp</button>
-        {/* <Link to="/addpost"><button>Add Post</button></Link> */}
+        <Link to='/addpost'><button>Add Post</button></Link>
         <ul>
           { posts && posts.length > 0 &&
             posts.filter(post => !post.deleted)
             .sort(( a, b ) => {
               switch ( sorting ) {
-                case "timestamp":
+                case 'timestamp':
                   return b.timestamp - a.timestamp;
                 default:
                   return b.voteScore - a.voteScore;
@@ -63,8 +75,8 @@ render() {
 
 }
 
-const mapStateToProps = ({posts, sorting}) => ({
-  posts, sorting
+const mapStateToProps = ({posts, categories, sorting}) => ({
+  posts, categories, sorting
 })
 
-export default connect(mapStateToProps, {loadPosts, changeSorting, votePost})(MainPage)
+export default connect(mapStateToProps, {loadPosts, loadCategories, changeSorting, votePost})(MainPage)

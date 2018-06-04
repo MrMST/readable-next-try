@@ -14,12 +14,7 @@ function posts(state = { posts: [] }, action) {
       case types.LOAD_POST_SUCCESS:
       return [action.posts];
 
-    default:
-      return state;
-
     case types.VOTE_POST_SUCCESS:
-      console.log('action.voteScore')
-      console.log(action.post.voteScore)
       const refreshedPosts = state.posts.map(entry => {
         if (entry.id === action.post.id) {
           entry.voteScore = action.post.voteScore;
@@ -30,6 +25,24 @@ function posts(state = { posts: [] }, action) {
         ...state,
         postsSSS: refreshedPosts
       };
+
+      default:
+        return state;
+  }
+}
+
+function categories(state = {}, action) {
+  switch (action.type) {
+
+    case types.LOAD_CATEGORIES_SUCCESS:
+      return action.categories
+      // return {
+      //   ...state,
+      //   categories: action.categories
+      // };
+
+    default:
+      return state;
   }
 }
 
@@ -39,8 +52,9 @@ function sorting(state = { sorting: 'timestamp' }, action) {
     case types.CHANGE_SORTING_SUCCESS:
       return {
         ...state,
-        sorting: action.value
+        sorting: action.sorting.sorting
       };
+
       default:
         return state;
     }
@@ -48,5 +62,6 @@ function sorting(state = { sorting: 'timestamp' }, action) {
 
 export default combineReducers({
     posts,
+    categories,
     sorting
 })

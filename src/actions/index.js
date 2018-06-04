@@ -10,7 +10,7 @@ export function loadPostsSuccess(posts) {
 
 export function loadPosts() {
   return function(dispatch) {
-    return Api.getAllPosts().then(posts => {
+    return Api.getPosts().then(posts => {
       dispatch(loadPostsSuccess(posts));
     }).catch(error => {
       throw(error);
@@ -27,8 +27,25 @@ export function loadPostSuccess(posts) {
 
 export function loadPost(id) {
   return function(dispatch) {
-    return Api.getSinglePost(id).then(post => {
+    return Api.getPost(id).then(post => {
       dispatch(loadPostSuccess(post));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+export function addPostSuccess(post) {
+  return {
+    type: types.ADD_POST_SUCCESS,
+    post
+  }
+};
+
+export function addPost(post) {
+  return function(dispatch) {
+    Api.addPost(post).then(post => {
+      dispatch(addPostSuccess(post));
     }).catch(error => {
       throw(error);
     });
@@ -43,10 +60,10 @@ export function changeSorting(sorting) {
 }
 
 export function votePostSuccess(post) {
-return {
-    type: types.VOTE_POST_SUCCESS,
-    post
-  }
+  return {
+      type: types.VOTE_POST_SUCCESS,
+      post
+    }
 }
 
 export function votePost(id, value) {
@@ -58,3 +75,20 @@ export function votePost(id, value) {
     });
   };
 }
+
+export function loadCategoriesSuccess(categories) {
+  return  {
+    type: types.LOAD_CATEGORIES_SUCCESS,
+    categories
+  }
+};
+
+export function loadCategories() {
+  return function(dispatch) {
+    return Api.getCategories().then(categories => {
+      dispatch(loadCategoriesSuccess(categories));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+};
