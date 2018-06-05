@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom'
 import uuidv1 from 'uuid/v1'
 import serializeForm from 'form-serialize'
 import Timestamp from 'react-timestamp'
-import { loadPost, deletePost, votePost, loadComments, addComment, deleteComment
-  // sendVoteComment
-} from '../actions'
+import { loadPost, deletePost, votePost, voteComment, loadComments, addComment, deleteComment } from '../actions'
 
 class ShowPost extends Component {
 
@@ -32,13 +30,9 @@ class ShowPost extends Component {
     this.props.deleteComment(commentId);
   };
 
-  // voteCommentUp = (commentId) => {
-  //   this.props.voteComment(commentId, 'upVote');
-  // };
-
-  // voteCommentDown = (commentId) => {
-  //   this.props.voteComment(commentId, 'downVote');
-  // };
+  voteComment = (id, value) => {
+    this.props.voteComment(id, value);
+  }
 
   handleInputChange = event => {
     const target = event.target;
@@ -96,9 +90,9 @@ class ShowPost extends Component {
                       <div>{comment.body}</div>
                       <Timestamp time={ comment.timestamp / 1000 } format='full' />
                       <div>
-                        <button onClick={ () => this.voteCommentUp(comment.id) }>Up</button>
+                        <button onClick={ () => this.voteComment(comment.id, 'upVote') }>Up</button>
                         Score {comment.voteScore}
-                        <button onClick={ () => this.voteCommentDown(comment.id) }>Down</button>
+                        <button onClick={ () => this.voteComment(comment.id, 'downVote') }>Down</button>
                       </div>
                       <Link to={`/editcomment/${comment.id}`}><button>Edit Comment</button></Link>
                       <button onClick={ () => this.deleteComment(comment.id) }>Delete Comment</button>
@@ -143,11 +137,9 @@ const mapDispatchToProps = (dispatch) => ({
     ),
   addComment: comment => dispatch(addComment(comment)),
   deleteComment: commentId => dispatch(deleteComment(commentId)),
+  votePost: (postId, option) => dispatch(votePost(postId, option)),
+  // voteComment: (commentId, option) => dispatch(voteComment(commentId, option)),
   // deletePost: postId => dispatch(sendDeletePost(postId)),
-  // votePost: (postId, option) => dispatch(sendVotePost(postId, option)),
-  //
-  // voteComment: (commentId, option) =>
-  //   dispatch(sendVoteComment(commentId, option)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowPost);

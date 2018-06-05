@@ -21,7 +21,11 @@ function posts(state = { posts: [] }, action) {
       }
 
     case types.VOTE_POST_SUCCESS:
-      const refreshedPosts = state.posts.map(entry => {
+
+      console.log('state ')
+      console.log(state)
+
+      const posts = state.posts.map(entry => {
         if (entry.id === action.post.id) {
           entry.voteScore = action.post.voteScore
         }
@@ -29,7 +33,7 @@ function posts(state = { posts: [] }, action) {
       })
       return {
         ...state,
-        posts: refreshedPosts
+        posts: posts
       }
 
       default:

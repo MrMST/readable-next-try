@@ -41,10 +41,6 @@ export function loadPostSuccess(posts) {
 }
 
 export function loadPost(id) {
-
-  console.log('loadPost')
-  console.log(id)
-
   return function(dispatch) {
     return Api.getPost(id).then(post => {
       dispatch(loadPostSuccess(post));
