@@ -9,45 +9,48 @@ function posts(state = { posts: [] }, action) {
       return {
           ...state,
           posts: action.posts
-        };
+        }
 
     case types.LOAD_POST_SUCCESS:
-      return [action.posts];
+      return [action.posts]
 
     case types.DELETE_POST_SUCCESS:
-      const remainingPosts = state.posts.filter(
-        entry => entry.id !== action.postId
-      );
       return {
         ...state,
-        posts: remainingPosts
-      };
+        posts: state.posts.filter(entry => entry.id !== action.postId)
+      }
 
     case types.VOTE_POST_SUCCESS:
       const refreshedPosts = state.posts.map(entry => {
         if (entry.id === action.post.id) {
-          entry.voteScore = action.post.voteScore;
+          entry.voteScore = action.post.voteScore
         }
         return entry;
-      });
+      })
       return {
         ...state,
         posts: refreshedPosts
-      };
+      }
 
       default:
-        return state;
+        return state
   }
 }
 
 function comments(state = {}, action) {
   switch (action.type) {
 
+    case types.ADD_COMMENT_SUCCESS:
+      return state.concat(action.comment)
+
     case types.LOAD_COMMENTS_SUCCESS:
-      return action.comments;
+      return action.comments
+
+    case types.DELETE_COMMENT_SUCCESS:
+      return state.filter(entry => entry.id !== action.commentId)
 
     default:
-      return state;
+      return state
   }
 }
 
@@ -58,7 +61,7 @@ function categories(state = {}, action) {
       return action.categories
 
     default:
-      return state;
+      return state
   }
 }
 
@@ -69,10 +72,10 @@ function sorting(state = { sorting: 'timestamp' }, action) {
       return {
         ...state,
         sorting: action.sorting.sorting
-      };
+      }
 
       default:
-        return state;
+        return state
     }
 }
 

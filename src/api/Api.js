@@ -58,19 +58,24 @@ class Api {
     });
   }
 
-  // static addComment = (comment) => {
-  //   const body = JSON.stringify(comment);
-  //   return fetch(`${API}/comments/`, { method: 'POST', headers: {
-  //       Authorization: 'whatever-you-want',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body
-  //   }).then(response => {
-  //     return response.json();
-  //   }).catch(error => {
-  //     return error;
-  //   });
-  // }
+  static addComment = (comment) => {
+    return fetch(`${API}/comments`, { method: 'POST', headers: {
+      'Authorization': 'whatever-you-want',
+      'Content-Type': 'application/json'
+    }, body: JSON.stringify(comment)})
+    .then(data => data.json());
+  };
+
+  static deleteComment(commentId) {
+    return fetch(`${API}/comments/${commentId}`, { method: "DELETE", headers : {
+      'Authorization': 'whatever-you-want',
+      'Content-Type': 'application/json'
+    } }).then(response => {
+      return response.json();
+    }).catch(error => {
+      return error;
+    });
+  }
 
   // static voteComment = (commentId, option) => {
   //   return fetch(`${API}/comments/${commentId}`, { method: 'POST', headers: {

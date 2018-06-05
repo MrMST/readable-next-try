@@ -137,10 +137,6 @@ export function loadCommentsSuccess(comments) {
 };
 
 export function loadComments(postId) {
-
-  console.log('loadComments')
-  console.log(postId)
-
   return function (dispatch) {
     return Api.getComments(postId).then(comments => {
       dispatch(loadCommentsSuccess(comments));
@@ -157,7 +153,6 @@ export function addCommentSuccess(comment) {
   };
 };
 
-
 export function addComment(comment) {
   return function (dispatch) {
     Api.addComment(comment).then(comment => {
@@ -167,6 +162,23 @@ export function addComment(comment) {
     });
   }
 };
+
+export function deleteCommentSuccess(commentId) {
+  return {
+    type: types.DELETE_COMMENT_SUCCESS,
+    commentId
+  }
+};
+
+export function deleteComment(commentId) {
+  return function(dispatch) {
+    Api.deleteComment(commentId).then(comment => {
+      dispatch(deleteCommentSuccess(commentId));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
 
 export function voteCommentSuccess(commentId, option) {
   return {

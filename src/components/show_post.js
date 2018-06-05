@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom'
 import uuidv1 from 'uuid/v1'
 import serializeForm from 'form-serialize'
 import Timestamp from 'react-timestamp'
-import { loadPost, deletePost, votePost, loadComments,
-  // fetchAddComment,
-  // fetchDeleteComment,
+import { loadPost, deletePost, votePost, loadComments, addComment, deleteComment
   // sendVoteComment
 } from '../actions'
 
@@ -30,9 +28,9 @@ class ShowPost extends Component {
     this.props.votePost(id, value);
   }
 
-  // deleteComment = commentId => {
-  //   this.props.deleteComment(commentId);
-  // };
+  deleteComment = (commentId) => {
+    this.props.deleteComment(commentId);
+  };
 
   // voteCommentUp = (commentId) => {
   //   this.props.voteComment(commentId, 'upVote');
@@ -143,10 +141,11 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(loadPost(postId)).then(() =>
       dispatch(loadComments(postId))
     ),
+  addComment: comment => dispatch(addComment(comment)),
+  deleteComment: commentId => dispatch(deleteComment(commentId)),
   // deletePost: postId => dispatch(sendDeletePost(postId)),
   // votePost: (postId, option) => dispatch(sendVotePost(postId, option)),
-  // addComment: comment => dispatch(fetchAddComment(comment)),
-  // deleteComment: commentId => dispatch(fetchDeleteComment(commentId)),
+  //
   // voteComment: (commentId, option) =>
   //   dispatch(sendVoteComment(commentId, option)),
 });
