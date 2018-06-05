@@ -41,6 +41,10 @@ export function loadPostSuccess(posts) {
 }
 
 export function loadPost(id) {
+
+  console.log('loadPost')
+  console.log(id)
+
   return function(dispatch) {
     return Api.getPost(id).then(post => {
       dispatch(loadPostSuccess(post));
@@ -133,6 +137,10 @@ export function loadCommentsSuccess(comments) {
 };
 
 export function loadComments(postId) {
+
+  console.log('loadComments')
+  console.log(postId)
+
   return function (dispatch) {
     return Api.getComments(postId).then(comments => {
       dispatch(loadCommentsSuccess(comments));

@@ -40,6 +40,17 @@ function posts(state = { posts: [] }, action) {
   }
 }
 
+function comments(state = {}, action) {
+  switch (action.type) {
+
+    case types.LOAD_COMMENTS_SUCCESS:
+      return action.comments;
+
+    default:
+      return state;
+  }
+}
+
 function categories(state = {}, action) {
   switch (action.type) {
 
@@ -68,5 +79,6 @@ function sorting(state = { sorting: 'timestamp' }, action) {
 export default combineReducers({
     posts,
     categories,
+    comments,
     sorting
 })

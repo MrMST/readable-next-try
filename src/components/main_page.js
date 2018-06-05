@@ -28,8 +28,6 @@ render() {
   const {sorting} = this.props.sorting
   const categories = this.props.categories
 
-  console.log(categories)
-
   return(
       <div className='post-list-wrapper'>
           <ul>

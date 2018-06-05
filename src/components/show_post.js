@@ -63,18 +63,17 @@ class ShowPost extends Component {
   };
 
   render() {
+    const posts = this.props.posts;
+    const comments = this.props.comments;
 
     console.log(this.props)
-
-    const { posts } = this.props.posts;
-    const { comments } = this.props.comments;
 
     return (
       <div className='posts-wrapper'>
         <div>Show Post</div>
         <div><Link to={'/'} key='back'>Back</Link></div>
         {
-          posts && posts.length && Object.keys(posts[0]).length && !posts[0].error ? (<div>
+          posts && posts.length > 0 && Object.keys(posts[0]).length > 0 && !posts[0].error ? (<div>
             {
               posts.filter( post => !post.deleted).map(post => (
                 <div key={post.id}>
@@ -93,7 +92,7 @@ class ShowPost extends Component {
               <textarea name='pContent' value={post.body} readOnly/>
               <div className='comments-wrapper'>
                 {
-                  comments && comments.length && comments.filter ( comment => !comment.deleted ).map( comment => (
+                  comments && comments.length > 0 && comments.filter ( comment => !comment.deleted ).map( comment => (
                     <div key={uuidv1()} className='comment'>
                       <div>{comment.author}</div>
                       <div>{comment.body}</div>
@@ -139,7 +138,7 @@ const mapStateToProps = ({ posts, comments }) => ({
   comments
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   consolidatePostComments: postId =>
     dispatch(loadPost(postId)).then(() =>
       dispatch(loadComments(postId))
